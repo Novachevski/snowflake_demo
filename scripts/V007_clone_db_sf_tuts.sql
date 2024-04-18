@@ -1,0 +1,1 @@
+CREATE DATABASE sf_tuts_clone CLONE sf_tuts;

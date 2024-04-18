@@ -1,0 +1,1 @@
+snowsql -a AUFDSKR-SO14294 -u novachevski -f cleanup.sql
