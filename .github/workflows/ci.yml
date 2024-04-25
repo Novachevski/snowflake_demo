@@ -39,7 +39,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run SQL scripts
         run: |
-              ls -la
+              ls -la ~
               pwd
               snowsql 
 
