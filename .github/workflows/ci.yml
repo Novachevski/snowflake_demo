@@ -41,9 +41,9 @@ jobs:
         run: |
               ls -la ~
               pwd
+              # snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/
               ls ~/bin
-              cat ~/.profile
-
+              source ~./profile
               # for file in "scripts"/*; do
               #   echo "Processing file: $file"
               #   snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
