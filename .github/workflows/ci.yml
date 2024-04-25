@@ -44,6 +44,7 @@ jobs:
               # snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/
               ls ~/bin
               source ~/.profile
+              snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/V001_create_db.sql
               # for file in "scripts"/*; do
               #   echo "Processing file: $file"
               #   snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
