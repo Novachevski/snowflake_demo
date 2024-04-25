@@ -41,6 +41,8 @@ jobs:
         run: |
               ls -la ~
               pwd
+              which snowsql
+              ls ~/bin
 
               # for file in "scripts"/*; do
               #   echo "Processing file: $file"
