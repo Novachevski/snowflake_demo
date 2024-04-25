@@ -42,6 +42,7 @@ jobs:
               ls -la ~
               pwd
               ls ~/bin
+              cat ~/.profile
 
               # for file in "scripts"/*; do
               #   echo "Processing file: $file"
