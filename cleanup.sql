@@ -2,5 +2,10 @@ DROP DATABASE IF EXISTS sf_tuts;
 
 DROP WAREHOUSE IF EXISTS sf_tuts_wh;
 
-
 DROP DATABASE IF EXISTS sf_tuts_clone;
+
+DROP DATABASE IF EXISTS sf_tuts_dev;
+
+DROP WAREHOUSE IF EXISTS sf_tuts_dev_wh;
+
+

@@ -28,19 +28,26 @@ jobs:
               SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
               source ~/.profile
 
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a set of commands using the runners shell
       - name: Run SQL scripts
         run: |
               source ~/.profile         
-              for file in "scripts"/*; do
+              for file in "scripts/migrate"/*; do
                 echo "Processing file: $file"
                 snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
               done
+  # build:
+  #   # The type of runner that the job will run on
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  #     - uses: actions/checkout@v3
+  #
+  #     # Runs a set of commands using the runners shell
+  #     - name: Run SQL scripts
+  #       run: |
+  #             source ~/.profile         
+  #             for file in "scripts"/*; do
+  #               echo "Processing file: $file"
+  #               snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
+  #             done
