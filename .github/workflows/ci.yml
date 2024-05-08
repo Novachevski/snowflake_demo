@@ -49,9 +49,8 @@ jobs:
 
      - name: Deploy 
        uses: JamesIves/github-pages-deploy-action@v4
-       working-directory: snowflake-inventory/
        with:
-          folder: output
+          folder: snowflake-inventory/output
 
   # build:
   #   # The type of runner that the job will run on
