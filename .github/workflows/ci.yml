@@ -47,6 +47,11 @@ jobs:
               sudo apt install graphviz
               java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account AUFDSKR-SO14294 -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
 
+     - name: Deploy 
+       uses: JamesIves/github-pages-deploy-action@v4
+       with:
+          folder: output
+
   # build:
   #   # The type of runner that the job will run on
   #   runs-on: ubuntu-latest
