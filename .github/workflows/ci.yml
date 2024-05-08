@@ -43,8 +43,8 @@ jobs:
      - name: update inventory 
        working-directory: snowflake-inventory/
        run: |
-              apt install openjdk-11-jdk
-              apt install graphviz
+              sudo apt install openjdk-11-jdk
+              sudo apt install graphviz
               java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account AUFDSKR-SO14294 -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
 
   # build:
