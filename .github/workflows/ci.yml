@@ -39,10 +39,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: update inventory
-      - uses: actions/checkout@v3
-        working-directory: snowflake-inventory/
-        run: |
+     - uses: actions/checkout@v3 
+     - name: update inventory 
+       working-directory: snowflake-inventory/
+       run: |
               sudo apt install openjdk-11-jdk
               java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account AUFDSKR-SO14294 -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
 
