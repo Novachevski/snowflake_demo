@@ -18,23 +18,36 @@ env:
 jobs:
   # This workflow contains a single job called "build"
   
-  prepare:
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     - name: Install snowsql 
+  #       run: |
+  #             curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
+  #             SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
+  #             source ~/.profile
+  #
+  #     - name: Run SQL scripts
+  #       run: |
+  #             source ~/.profile         
+  #             for file in "scripts/migrate"/*; do
+  #               echo "Processing file: $file"
+  #               snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
+  #             done
+  inventory:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install snowsql 
+      - name: update inventory
+        working-directory: snowflake-inventory/
         run: |
-              curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
-              SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
-              source ~/.profile
+              sudo apt install openjdk-11-jdk
+              java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account AUFDSKR-SO14294 -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
 
-      - name: Run SQL scripts
-        run: |
-              source ~/.profile         
-              for file in "scripts/migrate"/*; do
-                echo "Processing file: $file"
-                snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
-              done
+
+              
+
   # build:
   #   # The type of runner that the job will run on
   #   runs-on: ubuntu-latest
