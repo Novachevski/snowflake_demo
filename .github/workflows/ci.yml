@@ -40,7 +40,7 @@ jobs:
                 echo "Processing file: $file"
                 snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
 
-  deploy:
+  clone:
     runs-on: ubuntu-latest
 
     steps:
