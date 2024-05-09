@@ -35,7 +35,8 @@ jobs:
 
       - name: Run SQL scripts
         run: |
-              source ~/.profile         
+              source ~/.profile
+              ls -la
               for file in "scripts/base/dev"/*; do
                 echo "Processing file: $file"
                 snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
