@@ -59,7 +59,7 @@ jobs:
               source ~/.profile         
               for file in "scripts/clone"/*; do
                 echo "Processing file: $file"
-                snowsql -a AUFDSKR-SO14294 -u novachevski -f -D env=dev $file
+                snowsql -a AUFDSKR-SO14294 -u novachevski -D env=dev -f $file
               done
 
   # inventory:
