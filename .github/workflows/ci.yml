@@ -21,41 +21,61 @@ env:
 jobs:
   # This workflow contains a single job called "build"
   
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #
-  #   steps:
-  #     - name: Install snowsql 
-  #       run: |
-  #             curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
-  #             SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
-  #             source ~/.profile
-  #
-  #     - name: Run SQL scripts
-  #       run: |
-  #             source ~/.profile         
-  #             for file in "scripts/migrate"/*; do
-  #               echo "Processing file: $file"
-  #               snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
-  #             done
-  inventory:
+
+
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-     - uses: actions/checkout@v3 
-     - name: update inventory 
-       working-directory: snowflake-inventory/
-       run: |
-              sudo apt install openjdk-11-jdk
-              sudo apt install graphviz
-              java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account AUFDSKR-SO14294 -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
+      - name: Install snowsql 
+        run: |
+              curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
+              SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
+              source ~/.profile
 
-     - name: Deploy 
-       uses: JamesIves/github-pages-deploy-action@v4
-       with:
-          folder: snowflake-inventory/output
+      - name: Run SQL scripts
+        run: |
+              source ~/.profile         
+              for file in "scripts/base/dev"/*; do
+                echo "Processing file: $file"
+                snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
 
-  # build:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install snowsql 
+        run: |
+              curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
+              SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
+              source ~/.profile
+
+      - name: Run SQL scripts
+        run: |
+              source ~/.profile         
+              for file in "scripts/clone"/*; do
+                echo "Processing file: $file"
+                snowsql -a AUFDSKR-SO14294 -u novachevski -f -D env=dev $file
+              done
+
+  # inventory:
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #    - uses: actions/checkout@v3 
+  #    - name: update inventory 
+  #      working-directory: snowflake-inventory/
+  #      run: |
+  #             sudo apt install openjdk-11-jdk
+  #             sudo apt install graphviz
+  #             java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account AUFDSKR-SO14294 -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
+  #
+  #    - name: Deploy 
+  #      uses: JamesIves/github-pages-deploy-action@v4
+  #      with:
+  #         folder: snowflake-inventory/output
+  #
+  # # build:
   #   # The type of runner that the job will run on
   #   runs-on: ubuntu-latest
   #
