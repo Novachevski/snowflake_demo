@@ -21,30 +21,11 @@ env:
 jobs:
   # This workflow contains a single job called "build"
   
-  # clone:
-  #   runs-on: ubuntu-latest
-  #
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Install snowsql 
-  #       run: |
-  #             curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
-  #             SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
-  #             source ~/.profile
-  #
-  #     - name: Run SQL scripts
-  #       run: |
-  #             source ~/.profile         
-  #             for file in "scripts/clone"/*; do
-  #               echo "Processing file: $file"
-  #               snowsql -a AUFDSKR-SO14294 -u novachevski -D env=dev -f $file
-  #             done
-
-  deploy:
+  clone:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3 
+      - uses: actions/checkout@v3
       - name: Install snowsql 
         run: |
               curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
@@ -53,12 +34,31 @@ jobs:
 
       - name: Run SQL scripts
         run: |
-              source ~/.profile
-              ls -la
-              for file in "scripts/base/qa"/*; do
+              source ~/.profile         
+              for file in "scripts/clone"/*; do
                 echo "Processing file: $file"
-                snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
+                snowsql -a AUFDSKR-SO14294 -u novachevski -D env=dev -f $file
               done
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     - uses: actions/checkout@v3 
+  #     - name: Install snowsql 
+  #       run: |
+  #             curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
+  #             SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
+  #             source ~/.profile
+  #
+  #     - name: Run SQL scripts
+  #       run: |
+  #             source ~/.profile
+  #             ls -la
+  #             for file in "scripts/base/qa"/*; do
+  #               echo "Processing file: $file"
+  #               snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
+              # done
   # inventory:
   #   runs-on: ubuntu-latest
   #
