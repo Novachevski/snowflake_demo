@@ -23,7 +23,7 @@ jobs:
   
   env-dev:
     runs-on: ubuntu-latest
-
+    environment: dev
     steps:
       - uses: actions/checkout@v3
       - name: Install snowsql 
@@ -38,7 +38,8 @@ jobs:
               snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/clone/clone_db_sf_tuts_dev.sql
               done
 
-  deploy:
+  deploy-dev:
+    needs: env-dev
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -59,6 +60,7 @@ jobs:
               done
 
   env-qa:
+    needs: deploy-dev
     runs-on: ubuntu-latest
     environment: qa
     steps:
