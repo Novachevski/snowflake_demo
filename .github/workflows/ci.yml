@@ -54,9 +54,9 @@ jobs:
         run: |
               source ~/.profile
               ls -la
-              for file in "scripts/base/prod"/*; do
+              for file in "scripts/migrate"/*; do
                 echo "Processing file: $file"
-                snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
+                snowsql -a AUFDSKR-SO14294 -u novachevski -f V006_insert_more_data-dev.sql
               done
 
   env-qa:

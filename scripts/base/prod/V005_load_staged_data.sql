@@ -1,4 +1,4 @@
-USE DATABASE sf_tuts_prod;
+USE DATABASE sf_tuts;
 COPY INTO emp_basic
   FROM @%emp_basic
   FILE_FORMAT = (type = csv field_optionally_enclosed_by='"')
