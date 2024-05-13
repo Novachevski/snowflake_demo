@@ -36,7 +36,6 @@ jobs:
         run: |
               source ~/.profile         
               snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/clone/clone_db_sf_tuts_dev.sql
-              done
 
   deploy-dev:
     needs: env-dev
