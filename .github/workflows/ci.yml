@@ -21,26 +21,26 @@ env:
 jobs:
   # This workflow contains a single job called "build"
   
-  # env-dev:
-  #   runs-on: ubuntu-latest
-  #
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Install snowsql 
-  #       run: |
-  #             curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
-  #             SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
-  #             source ~/.profile
-  #
-  #     - name: Clone for dev
-  #       run: |
-  #             source ~/.profile         
-  #             snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/clone/clone_db_sf_tuts_dev.sql
-  #             done
+  env-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install snowsql 
+        run: |
+              curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
+              SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
+              source ~/.profile
+
+      - name: Clone for dev
+        run: |
+              source ~/.profile         
+              snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/clone/clone_db_sf_tuts_dev.sql
+              done
 
   deploy:
     runs-on: ubuntu-latest
-
+    environment: dev
     steps:
       - uses: actions/checkout@v3 
       - name: Install snowsql 
@@ -58,21 +58,21 @@ jobs:
                 snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
               done
 
-  # env-qa:
-  #   runs-on: ubuntu-latest
-  #
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Install snowsql 
-  #       run: |
-  #             curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
-  #             SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
-  #             source ~/.profile
-  #
-  #     - name: Clone for QA
-  #       run: |
-  #             source ~/.profile         
-  #             snowsql -a AUFDSKR-SO14294 -u novachevski -D env=dev -f scripts/clone/clone_db_sf_tuts_qa.sql
+  env-qa:
+    runs-on: ubuntu-latest
+    environment: qa
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install snowsql 
+        run: |
+              curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
+              SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
+              source ~/.profile
+
+      - name: Clone for QA
+        run: |
+              source ~/.profile         
+              snowsql -a AUFDSKR-SO14294 -u novachevski -D env=dev -f scripts/clone/clone_db_sf_tuts_qa.sql
   #
   # inventory:
   #   runs-on: ubuntu-latest
