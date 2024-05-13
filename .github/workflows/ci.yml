@@ -53,7 +53,7 @@ jobs:
         run: |
               source ~/.profile
               ls -la
-              snowsql -a AUFDSKR-SO14294 -u novachevski -f V006_insert_more_data-dev.sql
+              snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/clone/V006_insert_more_data-dev.sql
             
 
   env-qa:
