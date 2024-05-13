@@ -8,4 +8,4 @@ DROP DATABASE IF EXISTS sf_tuts_dev;
 
 DROP WAREHOUSE IF EXISTS sf_tuts_dev_wh;
 
-
+DROP DATABASE IF EXISTS sf_tuts_clone_dev;
