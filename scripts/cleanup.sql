@@ -9,3 +9,11 @@ DROP DATABASE IF EXISTS sf_tuts_dev;
 DROP WAREHOUSE IF EXISTS sf_tuts_dev_wh;
 
 DROP DATABASE IF EXISTS sf_tuts_clone_dev;
+
+
+
+DROP DATABASE IF EXISTS sf_tuts_qa;
+
+DROP WAREHOUSE IF EXISTS sf_tuts_qa_wh;
+
+DROP DATABASE IF EXISTS sf_tuts_clone_qa;

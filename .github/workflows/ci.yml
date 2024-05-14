@@ -17,25 +17,21 @@ on:
   workflow_dispatch:
 env:
   SNOWSQL_PWD: ${{secrets.SNOWFLAKE_PASS}}
+  SNOWFLAKE_ACCOUNT: ${{secrets.SNOWFLAKE_ACCOUNT}}
+  SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER}}
+  SNOWFLAKE_PASSWORD: ${{secrets.SNOWFLAKE_PASSWORD}}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   
   env-dev:
-    runs-on: ubuntu-latest
+    runs-on: hashicorp/terraform
     environment: dev
+    working-directory: snowflake-clone/
     steps:
       - uses: actions/checkout@v3
-      - name: Install snowsql 
-        run: |
-              curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
-              SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
-              source ~/.profile
-
-      - name: Clone for dev
-        run: |
-              source ~/.profile         
-              snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/clone/clone_db_sf_tuts_dev.sql
+      # - name: Install snowsql
+        run: terraform apply -auto-approve
 
   deploy-dev:
     needs: env-dev
