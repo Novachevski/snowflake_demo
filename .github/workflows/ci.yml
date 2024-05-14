@@ -37,7 +37,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: create dev env
         working-directory: snowflake-clone/
-        run: terraform apply -auto-approve
+        run: |
+          ls -la
+          terraform apply -auto-approve
 
   deploy-dev:
     needs: env-dev
