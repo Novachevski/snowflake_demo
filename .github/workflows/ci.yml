@@ -25,7 +25,7 @@ jobs:
   # This workflow contains a single job called "build"
   
   env-dev:
-    runs-on: hashicorp/terraform
+    runs-on: 
     environment: dev
     
     steps:
@@ -37,6 +37,8 @@ jobs:
   deploy-dev:
     needs: env-dev
     runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform
     environment: dev
     steps:
       - uses: actions/checkout@v3 
