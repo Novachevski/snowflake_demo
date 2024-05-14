@@ -39,7 +39,8 @@ jobs:
         # working-directory: snowflake-clone/
         run: |
           ls -la
-          terraform apply -auto-approve
+          terraform -chdir=snowflake-clone/ init 
+          terraform -chdir=snowflake-clone/ apply -auto-approve
 
   deploy-dev:
     needs: env-dev
