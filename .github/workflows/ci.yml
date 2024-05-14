@@ -30,7 +30,7 @@ jobs:
     working-directory: snowflake-clone/
     steps:
       - uses: actions/checkout@v3
-      # - name: Install snowsql
+      - name: create dev env
         run: terraform apply -auto-approve
 
   deploy-dev:
