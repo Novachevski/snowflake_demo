@@ -16,7 +16,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 env:
-  SNOWSQL_PWD: ${{secrets.SNOWFLAKE_PASS}}
+  SNOWSQL_PWD: ${{secrets.SNOWFLAKE_PASSWORD}}
   SNOWFLAKE_ACCOUNT: ${{secrets.SNOWFLAKE_ACCOUNT}}
   SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER}}
   SNOWFLAKE_PASSWORD: ${{secrets.SNOWFLAKE_PASSWORD}}
