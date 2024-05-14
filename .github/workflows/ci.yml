@@ -27,10 +27,11 @@ jobs:
   env-dev:
     runs-on: hashicorp/terraform
     environment: dev
-    working-directory: snowflake-clone/
+    
     steps:
       - uses: actions/checkout@v3
       - name: create dev env
+        working-directory: snowflake-clone/
         run: terraform apply -auto-approve
 
   deploy-dev:
