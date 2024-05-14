@@ -61,23 +61,41 @@ jobs:
               snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/migrate/V006_insert_more_data-dev.sql
             
 
-  env-qa:
-    needs: deploy-dev
-    runs-on: ubuntu-latest
-    environment: qa
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install snowsql 
-        run: |
-              curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
-              SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
-              source ~/.profile
-
-      - name: Clone for QA
-        run: |
-              source ~/.profile         
-              snowsql -a AUFDSKR-SO14294 -u novachevski -D env=dev -f scripts/clone/clone_db_sf_tuts_qa.sql
+  # env-qa:
+  #   needs: deploy-dev
+  #   runs-on: ubuntu-latest
+  #   environment: qa
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Install snowsql 
+  #       run: |
+  #             curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
+  #             SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
+  #             source ~/.profile
   #
+  #     - name: Clone for QA
+  #       run: |
+  #             source ~/.profile         
+  #             snowsql -a AUFDSKR-SO14294 -u novachevski -D env=dev -f scripts/clone/clone_db_sf_tuts_qa.sql
+  
+
+  destroy-env:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Install terraform
+        run: |
+          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt update && sudo apt install terraform
+
+      - uses: actions/checkout@v3
+      - name: Destroy envs
+        # working-directory: snowflake-clone/
+        run: |
+          terraform -chdir=snowflake_clone/ init 
+          terraform -chdir=snowflake_clone/ destroy -auto-approve
+        #
   # inventory:
   #   runs-on: ubuntu-latest
   #
