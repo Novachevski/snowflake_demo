@@ -82,6 +82,7 @@ jobs:
   
 
   destroy-env:
+    needs: deploy-dev
     runs-on: ubuntu-latest
     environment: dev
     steps:
