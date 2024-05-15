@@ -51,14 +51,13 @@ jobs:
     steps:
       - name: Install SQL Fluff
         run: |
-          pip install sqlfluff
+              pip install sqlfluff
 
       - uses: actions/checkout@v3
       - name: Lint SQL scripts
         working-directory: ./scripts/migrate/
         run: |
-          ls -la
-          sqlfluff lint -d snowflake
+              sqlfluff lint -d snowflake
 
   deploy-dev:
     needs: env-dev
