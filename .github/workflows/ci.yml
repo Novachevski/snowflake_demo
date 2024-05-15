@@ -57,7 +57,7 @@ jobs:
       - name: Lint SQL scripts
         working-directory: ./scripts/migrate/
         run: |
-              sqlfluff lint -d snowflake
+              sqlfluff lint -vvv -d snowflake
 
   deploy-dev:
     needs: env-dev
