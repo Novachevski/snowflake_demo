@@ -24,7 +24,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+ # This workflow contains a single job called "build
   
   env-dev:
     runs-on: ubuntu-latest
@@ -43,6 +43,22 @@ jobs:
           ls -la
           terraform -chdir=snowflake_clone/ init 
           terraform -chdir=snowflake_clone/ apply -auto-approve
+
+  lint-code:
+    runs-on: ubuntu-latest
+    needs: env-dev
+    environment: dev
+    steps:
+      - name: Install SQL Fluff
+        run: |
+          pip install sql-fluff
+
+      - uses: actions/checkout@v3
+      - name: Lint SQL scripts
+        working-directory: ./scripts/migrate/
+        run: |
+          ls la
+          sqlfluff lint -d snowflake
 
   deploy-dev:
     needs: env-dev
