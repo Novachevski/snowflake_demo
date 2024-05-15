@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: Install SQL Fluff
         run: |
-          pip install sql-fluff
+          pip install sqlfluff
 
       - uses: actions/checkout@v3
       - name: Lint SQL scripts
