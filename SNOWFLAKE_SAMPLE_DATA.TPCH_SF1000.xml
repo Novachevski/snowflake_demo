@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="SNOWFLAKE_SAMPLE_DATA" schema="TPCH_SF1000" type="Snowflake - 8.20.0 (driver change version: 3.0.14)">
+   <tables>
+      <table catalog="SNOWFLAKE_SAMPLE_DATA" name="CUSTOMER" numRows="150000000" remarks="Customer data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
+         <column autoUpdated="false" defaultValue="" digits="0" id="0" name="C_CUSTKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="C_NAME" nullable="false" remarks="" size="25" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="C_ADDRESS" nullable="false" remarks="" size="40" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="3" name="C_NATIONKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="4" name="C_PHONE" nullable="false" remarks="" size="15" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="5" name="C_ACCTBAL" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="6" name="C_MKTSEGMENT" nullable="true" remarks="" size="10" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="7" name="C_COMMENT" nullable="true" remarks="" size="117" type="VARCHAR" typeCode="12"/>
+      </table>
+      <table catalog="SNOWFLAKE_SAMPLE_DATA" name="LINEITEM" numRows="5999989709" remarks="Lineitem data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
+         <column autoUpdated="false" defaultValue="" digits="0" id="0" name="L_ORDERKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="L_PARTKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="L_SUPPKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="3" name="L_LINENUMBER" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="4" name="L_QUANTITY" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="5" name="L_EXTENDEDPRICE" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="6" name="L_DISCOUNT" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="7" name="L_TAX" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="8" name="L_RETURNFLAG" nullable="false" remarks="" size="1" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="9" name="L_LINESTATUS" nullable="false" remarks="" size="1" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="10" name="L_SHIPDATE" nullable="false" remarks="" size="0" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="11" name="L_COMMITDATE" nullable="false" remarks="" size="0" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="12" name="L_RECEIPTDATE" nullable="false" remarks="" size="0" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="13" name="L_SHIPINSTRUCT" nullable="false" remarks="" size="25" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="14" name="L_SHIPMODE" nullable="false" remarks="" size="10" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="15" name="L_COMMENT" nullable="false" remarks="" size="44" type="VARCHAR" typeCode="12"/>
+      </table>
+      <table catalog="SNOWFLAKE_SAMPLE_DATA" name="NATION" numRows="25" remarks="Nation data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
+         <column autoUpdated="false" defaultValue="" digits="0" id="0" name="N_NATIONKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="N_NAME" nullable="false" remarks="" size="25" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="N_REGIONKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="3" name="N_COMMENT" nullable="true" remarks="" size="152" type="VARCHAR" typeCode="12"/>
+      </table>
+      <table catalog="SNOWFLAKE_SAMPLE_DATA" name="ORDERS" numRows="1500000000" remarks="Orders data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
+         <column autoUpdated="false" defaultValue="" digits="0" id="0" name="O_ORDERKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="O_CUSTKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="O_ORDERSTATUS" nullable="false" remarks="" size="1" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="3" name="O_TOTALPRICE" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="4" name="O_ORDERDATE" nullable="false" remarks="" size="0" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="5" name="O_ORDERPRIORITY" nullable="false" remarks="" size="15" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="6" name="O_CLERK" nullable="false" remarks="" size="15" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="7" name="O_SHIPPRIORITY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="8" name="O_COMMENT" nullable="false" remarks="" size="79" type="VARCHAR" typeCode="12"/>
+      </table>
+      <table catalog="SNOWFLAKE_SAMPLE_DATA" name="PART" numRows="200000000" remarks="Part data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
+         <column autoUpdated="false" defaultValue="" digits="0" id="0" name="P_PARTKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="P_NAME" nullable="false" remarks="" size="55" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="P_MFGR" nullable="false" remarks="" size="25" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="3" name="P_BRAND" nullable="false" remarks="" size="10" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="4" name="P_TYPE" nullable="false" remarks="" size="25" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="5" name="P_SIZE" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="6" name="P_CONTAINER" nullable="false" remarks="" size="10" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="7" name="P_RETAILPRICE" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="8" name="P_COMMENT" nullable="true" remarks="" size="23" type="VARCHAR" typeCode="12"/>
+      </table>
+      <table catalog="SNOWFLAKE_SAMPLE_DATA" name="PARTSUPP" numRows="800000000" remarks="Partsupp data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
+         <column autoUpdated="false" defaultValue="" digits="0" id="0" name="PS_PARTKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="PS_SUPPKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="PS_AVAILQTY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="3" name="PS_SUPPLYCOST" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="4" name="PS_COMMENT" nullable="true" remarks="" size="199" type="VARCHAR" typeCode="12"/>
+      </table>
+      <table catalog="SNOWFLAKE_SAMPLE_DATA" name="REGION" numRows="5" remarks="Region data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
+         <column autoUpdated="false" defaultValue="" digits="0" id="0" name="R_REGIONKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="R_NAME" nullable="false" remarks="" size="25" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="R_COMMENT" nullable="true" remarks="" size="152" type="VARCHAR" typeCode="12"/>
+      </table>
+      <table catalog="SNOWFLAKE_SAMPLE_DATA" name="SUPPLIER" numRows="10000000" remarks="Supplier data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
+         <column autoUpdated="false" defaultValue="" digits="0" id="0" name="S_SUPPKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="S_NAME" nullable="false" remarks="" size="25" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="S_ADDRESS" nullable="false" remarks="" size="40" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="3" name="S_NATIONKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="4" name="S_PHONE" nullable="false" remarks="" size="15" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="" digits="2" id="5" name="S_ACCTBAL" nullable="false" remarks="" size="12" type="NUMBER" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="6" name="S_COMMENT" nullable="true" remarks="" size="101" type="VARCHAR" typeCode="12"/>
+      </table>
+   </tables>
+</database>
