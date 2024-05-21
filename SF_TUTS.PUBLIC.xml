@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><database name="SF_TUTS" schema="PUBLIC" type="Snowflake - 8.17.3 (driver change version: 3.0.14)">
+<?xml version="1.0" encoding="UTF-8"?><database name="SF_TUTS" schema="PUBLIC" type="Snowflake - 8.20.0 (driver change version: 3.0.14)">
    <tables>
-      <table catalog="SF_TUTS" name="EMP_BASIC" numRows="0" remarks="" schema="PUBLIC" type="TABLE">
+      <table catalog="SF_TUTS" name="EMP_BASIC" numRows="25" remarks="" schema="PUBLIC" type="TABLE">
          <column autoUpdated="false" defaultValue="" digits="0" id="0" name="FIRST_NAME" nullable="true" remarks="" size="16777216" type="VARCHAR" typeCode="12"/>
          <column autoUpdated="false" defaultValue="" digits="0" id="1" name="LAST_NAME" nullable="true" remarks="" size="16777216" type="VARCHAR" typeCode="12"/>
          <column autoUpdated="false" defaultValue="" digits="0" id="2" name="EMAIL" nullable="true" remarks="" size="16777216" type="VARCHAR" typeCode="12"/>
