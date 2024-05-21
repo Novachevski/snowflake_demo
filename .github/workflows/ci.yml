@@ -75,7 +75,7 @@ jobs:
         run: |
               source ~/.profile
               ls -la
-              snowsql -a AUFDSKR-SO14294 -u novachevski -f scripts/migrate/V006_insert_more_data-dev.sql
+              snowsql -a gd63288.eu-west-2.aws -u novachevski -f scripts/migrate/V006_insert_more_data-dev.sql
             
 
   # env-qa:

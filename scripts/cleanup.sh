@@ -1,1 +1,1 @@
-snowsql -a AUFDSKR-SO14294 -u novachevski -f cleanup.sql
+snowsql -a gd63288.eu-west-2.aws -u novacevski -f cleanup.sql
