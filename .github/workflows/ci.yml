@@ -114,22 +114,22 @@ jobs:
           terraform -chdir=snowflake_clone/ init 
           terraform -chdir=snowflake_clone/ destroy -auto-approve
         #
-  # inventory:
-  #   runs-on: ubuntu-latest
-  #
-  #   steps:
-  #    - uses: actions/checkout@v3 
-  #    - name: update inventory 
-  #      working-directory: snowflake-inventory/
-  #      run: |
-  #             sudo apt install openjdk-11-jdk
-  #             sudo apt install graphviz
-  #             java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account AUFDSKR-SO14294 -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
-  #
-  #    - name: Deploy 
-  #      uses: JamesIves/github-pages-deploy-action@v4
-  #      with:
-  #         folder: snowflake-inventory/output
+  inventory:
+    needs: destroy-env
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v3 
+     - name: update inventory 
+       working-directory: snowflake-inventory/
+       run: |
+              sudo apt install openjdk-11-jdk
+              sudo apt install graphviz
+              java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account gd63288.eu-west-2.aws -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
+
+     - name: Deploy 
+       uses: JamesIves/github-pages-deploy-action@v4
+       with:
+          folder: snowflake-inventory/output
   #
   # # build:
   #   # The type of runner that the job will run on
