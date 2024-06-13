@@ -22,7 +22,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
   FIVETRAN_API_KEY: ${{secrets.FIVETRAN_API_KEY}}
-  FIVETRAN_API_SECRET: ${{secrets.FIVETRAN_API_SECRET}}
+  FIVETRAN_API_SECRET: ${{secrets.FIVETRAN_API_SECRET}} 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
  # This workflow contains a single job called "build
@@ -65,7 +65,7 @@ jobs:
     steps:
       - name: Stop Fivetran
         run: |
-          curl -H "Content-Type: application/json" -X PATCH -u ${{secrets.FIVETRAN_API_KEY}}:${{FIVETRAN_API_SECRET}} -d '{"paused": "true"}' https://api.fivetran.com/v1/connectors/stalked_armament
+          curl -H "Content-Type: application/json" -X PATCH -u ${{secrets.FIVETRAN_API_KEY}}:${{secrets.FIVETRAN_API_SECRET}} -d '{"paused": "true"}' https://api.fivetran.com/v1/connectors/stalked_armament
  
   # deploy-dev:
   #   needs: env-dev
