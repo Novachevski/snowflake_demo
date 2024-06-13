@@ -21,61 +21,70 @@ env:
   SNOWFLAKE_PASSWORD: ${{secrets.SNOWFLAKE_PASSWORD}}
   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+  FIVETRAN_API_KEY: ${{secrets.FIVETRAN_API_KEY}}
+  FIVETRAN_API_SECRET: ${{secrets.FIVETRAN_API_SECRET}}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
  # This workflow contains a single job called "build
   
-  env-dev:
+  # env-dev:
+  #   runs-on: ubuntu-latest
+  #   environment: dev
+  #   steps:
+  #     - name: Install terraform
+  #       run: |
+  #         wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  #         echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  #         sudo apt update && sudo apt install terraform
+  #
+  #     - uses: actions/checkout@v3
+  #     - name: create dev env
+  #       # working-directory: snowflake-clone/
+  #       run: |
+  #         ls -la
+  #         terraform -chdir=snowflake_clone/ init 
+  #         terraform -chdir=snowflake_clone/ apply -auto-approve
+
+  # lint-code:
+  #   runs-on: ubuntu-latest
+  #   needs: env-dev
+  #   environment: dev
+  #   steps:
+  #     - name: Install SQL Fluff
+  #       run: |
+  #             pip install sqlfluff
+  #     - uses: actions/checkout@v3
+  #     - name: Lint SQL scripts
+  #       working-directory: ./scripts/migrate/
+  #       run: |
+  #             sqlfluff lint -vvv -d snowflake
+  #
+  stop-fivetran:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: dev 
     steps:
-      - name: Install terraform
+      - name: Stop Fivetran
         run: |
-          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo apt update && sudo apt install terraform
-
-      - uses: actions/checkout@v3
-      - name: create dev env
-        # working-directory: snowflake-clone/
-        run: |
-          ls -la
-          terraform -chdir=snowflake_clone/ init 
-          terraform -chdir=snowflake_clone/ apply -auto-approve
-
-  lint-code:
-    runs-on: ubuntu-latest
-    needs: env-dev
-    environment: dev
-    steps:
-      - name: Install SQL Fluff
-        run: |
-              pip install sqlfluff
-
-      - uses: actions/checkout@v3
-      - name: Lint SQL scripts
-        working-directory: ./scripts/migrate/
-        run: |
-              sqlfluff lint -vvv -d snowflake
-
-  deploy-dev:
-    needs: env-dev
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-      - uses: actions/checkout@v3 
-      - name: Install snowsql 
-        run: |
-              curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
-              SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
-              source ~/.profile
-
-      - name: Run SQL scripts
-        run: |
-              source ~/.profile
-              ls -la
-              snowsql -a gd63288.eu-west-2.aws -u ${{ secrets.SNOWFLAKE_USER}} -f scripts/migrate/V006_insert_more_data-dev.sql
-            
+          curl -H "Content-Type: application/json" -X PATCH -u ${{secrets.FIVETRAN_API_KEY}}:${{FIVETRAN_API_SECRET}} -d '{"paused": "true"}' https://api.fivetran.com/v1/connectors/stalked_armament
+ 
+  # deploy-dev:
+  #   needs: env-dev
+  #   runs-on: ubuntu-latest
+  #   environment: dev
+  #   steps:
+  #     - uses: actions/checkout@v3 
+  #     - name: Install snowsql 
+  #       run: |
+  #             curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.32-linux_x86_64.bash
+  #             SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.32-linux_x86_64.bash
+  #             source ~/.profile
+  #
+  #     - name: Run SQL scripts
+  #       run: |
+  #             source ~/.profile
+  #             ls -la
+  #             snowsql -a gd63288.eu-west-2.aws -u ${{ secrets.SNOWFLAKE_USER}} -f scripts/migrate/V006_insert_more_data-dev.sql
+  #
 
   # env-qa:
   #   needs: deploy-dev
@@ -95,40 +104,40 @@ jobs:
   #             snowsql -a AUFDSKR-SO14294 -u novachevski -D env=dev -f scripts/clone/clone_db_sf_tuts_qa.sql
   
 
-  destroy-env:
-    needs: deploy-dev
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-      - name: Install terraform
-        run: |
-          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo apt update && sudo apt install terraform
-
-      - uses: actions/checkout@v3
-      - name: Destroy envs
-        # working-directory: snowflake-clone/
-        run: |
-          terraform -chdir=snowflake_clone/ init 
-          terraform -chdir=snowflake_clone/ destroy -auto-approve
-        #
-  inventory:
-    needs: destroy-env
-    runs-on: ubuntu-latest
-    steps:
-     - uses: actions/checkout@v3 
-     - name: update inventory 
-       working-directory: snowflake-inventory/
-       run: |
-              sudo apt install openjdk-11-jdk
-              sudo apt install graphviz
-              java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account gd63288.eu-west-2.aws -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
-
-     - name: Deploy 
-       uses: JamesIves/github-pages-deploy-action@v4
-       with:
-          folder: snowflake-inventory/output
+  # destroy-env:
+  #   needs: deploy-dev
+  #   runs-on: ubuntu-latest
+  #   environment: dev
+  #   steps:
+  #     - name: Install terraform
+  #       run: |
+  #         wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  #         echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  #         sudo apt update && sudo apt install terraform
+  #
+  #     - uses: actions/checkout@v3
+  #     - name: Destroy envs
+  #       # working-directory: snowflake-clone/
+  #       run: |
+  #         terraform -chdir=snowflake_clone/ init 
+  #         terraform -chdir=snowflake_clone/ destroy -auto-approve
+  #       #
+  # inventory:
+  #   needs: destroy-env
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #    - uses: actions/checkout@v3 
+  #    - name: update inventory 
+  #      working-directory: snowflake-inventory/
+  #      run: |
+  #             sudo apt install openjdk-11-jdk
+  #             sudo apt install graphviz
+  #             java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account gd63288.eu-west-2.aws -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
+  #
+  #    - name: Deploy 
+  #      uses: JamesIves/github-pages-deploy-action@v4
+  #      with:
+  #         folder: snowflake-inventory/output
   #
   # # build:
   #   # The type of runner that the job will run on
