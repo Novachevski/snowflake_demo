@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><database name="SNOWFLAKE_SAMPLE_DATA" schema="TPCH_SF1000" type="Snowflake - 8.20.0 (driver change version: 3.0.14)">
+<?xml version="1.0" encoding="UTF-8"?><database name="SNOWFLAKE_SAMPLE_DATA" schema="TPCH_SF1000" type="Snowflake - 8.22.0 (driver change version: 3.0.14)">
    <tables>
       <table catalog="SNOWFLAKE_SAMPLE_DATA" name="CUSTOMER" numRows="150000000" remarks="Customer data as defined by TPC-H" schema="TPCH_SF1000" type="TABLE">
          <column autoUpdated="false" defaultValue="" digits="0" id="0" name="C_CUSTKEY" nullable="false" remarks="" size="38" type="NUMBER" typeCode="3"/>
