@@ -69,7 +69,7 @@ jobs:
           curl -H "Content-Type: application/json" -X PATCH -u ${{secrets.FIVETRAN_API_KEY}}:${{secrets.FIVETRAN_API_SECRET}} -d '{"paused": "true"}' https://api.fivetran.com/v1/connectors/stalked_armament
  
   deploy-dev:
-    needs: env-dev
+    needs: stop-fivetran
     runs-on: ubuntu-latest
     environment: dev
     steps:
