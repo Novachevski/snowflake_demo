@@ -61,6 +61,7 @@ jobs:
   #
   stop-fivetran:
     runs-on: ubuntu-latest
+    needs: lint-code
     environment: dev 
     steps:
       - name: Stop Fivetran
@@ -83,7 +84,7 @@ jobs:
         run: |
               source ~/.profile
               ls -la
-              snowsql -a gd63288.eu-west-2.aws -u ${{ secrets.SNOWFLAKE_USER}} -f scripts/migrate/V006_insert_more_data-dev.sql
+              snowsql -a ${{ secrets.SNOWFLAKE_ACCOUNT}} -u ${{ secrets.SNOWFLAKE_USER}} -f scripts/migrate/V006_insert_more_data-dev.sql
 
   destroy-env:
     needs: deploy-dev
@@ -132,7 +133,7 @@ jobs:
        run: |
               sudo apt install openjdk-11-jdk
               sudo apt install graphviz
-              java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account gd63288.eu-west-2.aws -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
+              java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account ${secrets.SNOWFLAKE_ACCOUNT}} -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
 
      - name: Deploy 
        uses: JamesIves/github-pages-deploy-action@v4
