@@ -11,5 +11,5 @@
 for file in "scripts/base/prod"/*; do
 	# Perform an action on each file here
 	echo "Processing file: $file"
-	snowsql -a AUFDSKR-SO14294 -u novachevski -f $file
+	snowsql -a oearnxk-vk87615 -u Borko -f $file
 done
