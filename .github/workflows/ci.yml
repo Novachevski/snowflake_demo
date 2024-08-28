@@ -133,7 +133,7 @@ jobs:
        run: |
               sudo apt install openjdk-11-jdk
               sudo apt install graphviz
-              java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account nb65635.eu-west-2.aws -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
+              java -jar schemaspy.jar -configFile config/snowflake.properties -debug -t snowflake -account hg24327.eu-north-1.aws -role ACCOUNTADMIN -warehouse SF_TUTS_WH  -dp jdbc/snowflake-jdbc-3.0.14.jar -o output/
 
      - name: Deploy 
        uses: JamesIves/github-pages-deploy-action@v4
