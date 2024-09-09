@@ -57,7 +57,7 @@ jobs:
       - name: Lint SQL scripts
         working-directory: ./scripts/migrate/
         run: |
-              sqlfluff lint -vvv -d snowflake
+              sqlfluff lint -v -d snowflake
   #
   stop-fivetran:
     runs-on: ubuntu-latest
